@@ -18,17 +18,17 @@ var data = [
 
 var App = React.createClass({
   render: function(){
-    var headings = this.props.headings.map(function(heading) {
+    var headings = this.props.headings.map(function(heading, i) {
       return(
-        <th>
-        {heading}
-        </th>
+          <th key={i}>
+            {heading}
+          </th>
       );
     });
 
-    var rows = this.props.data.map(function(row){
+    var rows = this.props.data.map(function(row, i){
       return(
-        <tr>
+        <tr key={i}>
           <td> {row.when} </td>
           <td> {row.who} </td>
           <td> {row.description} </td>
@@ -40,8 +40,12 @@ var App = React.createClass({
       <div>
         <h1>{this.props.title}</h1>
         <table>
-          {headings}
-          {rows}
+          <tbody>
+            <tr>
+              {headings}
+            </tr>
+            {rows}
+          </tbody>
         </table>
       </div>
     );
@@ -50,4 +54,4 @@ var App = React.createClass({
 
 var headings = [ 'Last updated at', 'By Author', 'Summary' ]
 var title = "Recent changes";
-React.render(<App headings={headings} data={data} title={title} />, document.body);
+ReactDOM.render(<App headings={headings} data={data} title={title} />, document.getElementById('app'));
